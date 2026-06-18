@@ -1,55 +1,61 @@
-# UAS_Web2_312410374_Muhamad_saeful_Rafii
+# CodeIgniter 4 Framework
 
-Proyek ini merupakan aplikasi sistem manajemen inventaris toko jam tangan (*Rafoldies Watch Inventory*) yang dibangun menggunakan arsitektur decoupled (terpisah). Bagian frontend dikembangkan sebagai Single Page Application (SPA) yang reaktif, sedangkan bagian backend berfungsi sebagai penyedia layanan RESTful API yang aman dengan otentikasi berbasis token.
+## What is CodeIgniter?
 
-* **NIM:** 312410374
-* **Nama:** Muhamad Saeful Rafii
-* **Mata Kuliah:** Pemrograman Web 2
+CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
+More information can be found at the [official site](https://codeigniter.com).
 
-## 1. Studi Kasus & Deskripsi Proyek
-Aplikasi ini menangani pengelolaan data stok barang masuk dan keluar untuk toko jam tangan komersial bernama **Rafoldies**. Fitur utama dalam aplikasi ini meliputi pencatatan katalog publik untuk pengunjung umum, pembatasan hak akses halaman manajemen admin menggunakan Navigation Guards, serta fungsi CRUD (Create, Read, Update, Delete) data jam tangan secara real-time yang terproteksi oleh JSON Web Token (JWT).
+This repository holds the distributable version of the framework.
+It has been built from the
+[development repository](https://github.com/codeigniter4/CodeIgniter4).
 
----
+More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
 
-## 2. Skema Relasi Tabel Database
-Berikut adalah rancangan hubungan antar tabel di database MySQL yang digunakan untuk menyokong seluruh operasional data pada sistem ini:
-<img width="959" height="505" alt="image" src="https://github.com/user-attachments/assets/02f43ac4-02a6-44e7-9fba-d92e7f699b6d" />
+You can read the [user guide](https://codeigniter.com/user_guide/)
+corresponding to the latest version of the framework.
 
-## 3. Pengujian Keamanan & Proteksi API (Postman)
-Sistem backend telah dilengkapi dengan sistem keamanan Token-Based Authentication. Jika endpoint API krusial ditembak secara langsung tanpa menyertakan token otentikasi yang sah di bagian Header Authorization, server akan menolak akses tersebut dan mengembalikan status Error 401 Unauthorized.
-<img width="959" height="502" alt="postman_error_401" src="https://github.com/user-attachments/assets/b632a783-3573-4e49-a692-b6608efa38a0" />
+## Important Change with index.php
 
-## 4. Antarmuka Aplikasi (User Interface)
+`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
+for better security and separation of components.
 
-### Halaman Login Admin
-Gerbang masuk autentikasi untuk memvalidasi kredensial administrator sebelum diberikan hak akses token ke dashboard.
-<img width="959" height="476" alt="Screenshot 2026-06-18 195508" src="https://github.com/user-attachments/assets/cbe7475f-c96e-4e5d-9e49-d6be8fb3c2b2" />
+This means that you should configure your web server to "point" to your project's *public* folder, and
+not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
+framework are exposed.
 
-### Halaman Dashboard Admin & Tabel Data (TailwindCSS)
-Tampilan panel utama admin yang menampilkan visualisasi data inventaris jam tangan dalam tabel responsif bertenaga TailwindCSS, lengkap dengan indikator warna stok kritis.
-<img width="959" height="479" alt="image" src="https://github.com/user-attachments/assets/a312d53a-76bf-4482-938f-6a049d87310a" />
+**Please** read the user guide for a better explanation of how CI4 works!
 
-### Form Modal Tambah / Edit Data
-Pop-up form modal interaktif yang digunakan admin untuk melakukan operasi penambahan data baru maupun pembaruan data jam tangan secara real-time.
-<img width="959" height="474" alt="image" src="https://github.com/user-attachments/assets/8ea8e1c5-ab94-41d8-a393-15721b51df36" />
+## Repository Management
 
-## 5. Petunjuk Instalasi (Local Environment)
+We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
+We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
+FEATURE REQUESTS.
 
-### Prasyarat Sistem
-1. XAMPP (Terinstal PHP versi 8.1 ke atas).
-2. Web Browser modern (Google Chrome atau Microsoft Edge).
+This repository is a "distribution" one, built by our release preparation script.
+Problems with it can be raised on our forum, or as issues in the main repository.
 
-### Langkah-Langkah Menjalankan Proyek:
+## Contributing
 
-#### A. Konfigurasi Database MySQL
-1. Jalankan XAMPP Control Panel, lalu aktifkan modul **Apache** dan **MySQL**.
-2. Akses halaman kontrol database lewat browser di `Mysql Workbench`.
-3. Buat sebuah database baru dengan nama `db_inventaris_jam`.
-4. Masuk ke database tersebut, pilih tab **Import**, cari file database `.sql` bawaan proyek ini, kemudian klik **Import/Go** hingga seluruh struktur tabel sukses terpasang.
+We welcome contributions from the community.
 
-#### B. Penempatan Source Code
-Ekstrak dan pastikan seluruh folder proyek berada di dalam direktori `htdocs` XAMPP Anda dengan struktur hirarki sebagai berikut:
-```text
-C:\xampp\htdocs\UAS_Web2_312410374_Muhamad_saeful_rafii\
-├── backend-api-baru\     <-- Core System Backend (CodeIgniter 4)
-└── frontend-spa\         <-- Core System Frontend (Vue.js & TailwindCSS)
+Please read the [*Contributing to CodeIgniter*](https://github.com/codeigniter4/CodeIgniter4/blob/develop/CONTRIBUTING.md) section in the development repository.
+
+## Server Requirements
+
+PHP version 8.2 or higher is required, with the following extensions installed:
+
+- [intl](http://php.net/manual/en/intl.requirements.php)
+- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+
+> [!WARNING]
+> - The end of life date for PHP 7.4 was November 28, 2022.
+> - The end of life date for PHP 8.0 was November 26, 2023.
+> - The end of life date for PHP 8.1 was December 31, 2025.
+> - If you are still using below PHP 8.2, you should upgrade immediately.
+> - The end of life date for PHP 8.2 will be December 31, 2026.
+
+Additionally, make sure that the following extensions are enabled in your PHP:
+
+- json (enabled by default - don't turn it off)
+- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
+- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
