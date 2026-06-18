@@ -1,61 +1,59 @@
-# CodeIgniter 4 Framework
+# Rafoldies Watch Inventory System - UAS Pemrograman Web 2
 
-## What is CodeIgniter?
+Proyek ini merupakan aplikasi sistem manajemen inventaris toko jam tangan (*Rafoldies Watch Inventory*) yang dibangun menggunakan arsitektur decoupled (terpisah). Bagian frontend dikembangkan sebagai Single Page Application (SPA) yang reaktif, sedangkan bagian backend berfungsi sebagai penyedia layanan RESTful API yang aman dengan otentikasi berbasis token.
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+* **NIM:** 312410374
+* **Nama:** Muhamad Saeful Rafii
+* **Mata Kuliah:** Pemrograman Web 2
 
-This repository holds the distributable version of the framework.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+## 1. Studi Kasus & Deskripsi Proyek
+Aplikasi ini menangani pengelolaan data stok barang masuk dan keluar untuk toko jam tangan komersial bernama **Rafoldies**. Fitur utama dalam aplikasi ini meliputi pencatatan katalog publik untuk pengunjung umum, pembatasan hak akses halaman manajemen admin menggunakan Navigation Guards, serta fungsi CRUD (Create, Read, Update, Delete) data jam tangan secara real-time yang terproteksi oleh JSON Web Token (JWT).
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+## 2. Skema Relasi Tabel Database
+Berikut adalah rancangan hubungan antar tabel di database MySQL yang digunakan untuk menyokong seluruh operasional data pada sistem ini:
+<img width="959" height="505" alt="Screenshot 2026-06-18 203534" src="https://github.com/user-attachments/assets/376f2108-fef0-4fd6-b88b-d002cd402be6" />
 
-You can read the [user guide](https://codeigniter.com/user_guide/)
-corresponding to the latest version of the framework.
+---
 
-## Important Change with index.php
+## 3. Pengujian Keamanan & Proteksi API (Postman)
+Sistem backend telah dilengkapi dengan sistem keamanan Token-Based Authentication. Jika endpoint API krusial ditembak secara langsung tanpa menyertakan token otentikasi yang sah di bagian Header Authorization, server akan menolak akses tersebut dan mengembalikan status Error 401 Unauthorized.
+<img width="959" height="502" alt="postman_error_401" src="https://github.com/user-attachments/assets/eba175c0-ae4f-4192-8e58-79560b8266fb" />
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+---
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+## 4. Antarmuka Aplikasi (User Interface)
 
-**Please** read the user guide for a better explanation of how CI4 works!
+### Halaman Login Admin
+Gerbang masuk autentikasi untuk memvalidasi kredensial administrator sebelum diberikan hak akses token ke dashboard.
+<img width="959" height="476" alt="Screenshot 2026-06-18 195508" src="https://github.com/user-attachments/assets/71a5af39-6840-4c8f-83f3-4a72e7169f62" />
 
-## Repository Management
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+### Halaman Dashboard Admin & Tabel Data (TailwindCSS)
+Tampilan panel utama admin yang menampilkan visualisasi data inventaris jam tangan dalam tabel responsif bertenaga TailwindCSS, lengkap dengan indikator warna stok kritis.
+<img width="959" height="479" alt="Screenshot 2026-06-18 203754" src="https://github.com/user-attachments/assets/4c152e98-413b-4b0c-9b9b-532609d819c0" />
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+### Form Modal Tambah / Edit Data
+Pop-up form modal interaktif yang digunakan admin untuk melakukan operasi penambahan data baru maupun pembaruan data jam tangan secara real-time.
+<img width="959" height="474" alt="Screenshot 2026-06-18 203824" src="https://github.com/user-attachments/assets/136f6ba4-a5de-4b8a-aad5-01a93f8e3b64" />
 
-## Contributing
+## 5. Petunjuk Instalasi (Local Environment)
 
-We welcome contributions from the community.
+### Prasyarat Sistem
+1. XAMPP (Terinstal PHP versi 8.1 ke atas).
+2. Web Browser modern (Google Chrome atau Microsoft Edge).
 
-Please read the [*Contributing to CodeIgniter*](https://github.com/codeigniter4/CodeIgniter4/blob/develop/CONTRIBUTING.md) section in the development repository.
+### Langkah-Langkah Menjalankan Proyek:
 
-## Server Requirements
+#### A. Konfigurasi Database MySQL
+1. Jalankan XAMPP Control Panel, lalu aktifkan modul **Apache** dan **MySQL**.
+2. Akses halaman kontrol database lewat aplikasi di `MySQL Workbench`.
+3. Buat sebuah database baru dengan nama `db_inventaris_jam`.
+4. Masuk ke database tersebut, pilih tab **Import**, cari file database `.sql` bawaan proyek ini, kemudian klik **Import/Go** hingga seluruh struktur tabel sukses terpasang.
 
-PHP version 8.2 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-
-> [!WARNING]
-> - The end of life date for PHP 7.4 was November 28, 2022.
-> - The end of life date for PHP 8.0 was November 26, 2023.
-> - The end of life date for PHP 8.1 was December 31, 2025.
-> - If you are still using below PHP 8.2, you should upgrade immediately.
-> - The end of life date for PHP 8.2 will be December 31, 2026.
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
+#### B. Penempatan Source Code
+Ekstrak dan pastikan seluruh folder proyek berada di dalam direktori `htdocs` XAMPP Anda dengan struktur hirarki sebagai berikut:
+```text
+C:\xampp\htdocs\UAS_Web2_312410374_Muhamad_saeful_rafii\
+├── backend-api-baru\     <-- Core System Backend (CodeIgniter 4)
+└── frontend-spa\         <-- Core System Frontend (Vue.js & TailwindCSS)hp.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
 - [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
